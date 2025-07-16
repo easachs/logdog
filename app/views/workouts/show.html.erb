@@ -1,0 +1,15 @@
+<h3><%= @workout.performed_at_formatted %></h3>
+
+<h2><%= @workout.name %></h2>
+
+<div class="bg-gray-100 p-2 m-4">
+  <p><%= @workout.notes %></p>
+  <p>(<%= @workout.length %> min)</p>
+</div>
+
+<div>
+  <p><%= link_to "Edit", edit_workout_path(@workout) %></p>
+  <p><%= button_to "Delete", workout_path(@workout), method: :delete,
+                                                     data: { confirm: "Are you sure?" } %></p>
+  <p><%= link_to "Back to Workouts", workouts_path %></p>
+</div>

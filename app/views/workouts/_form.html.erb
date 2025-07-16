@@ -1,0 +1,14 @@
+<%= form_with model: workout do |form| %>
+  <p><%= form.label :name %></p>
+  <p><%= form.text_field :name, value: workout.name || "New Workout",
+                         autofocus: true, placeholder: "Workout Name" %></p>
+  <p><%= form.label :performed_at %></p>
+  <p><%= form.datetime_field :performed_at, value: workout.performed_at || Time.now,
+                             include_seconds: false %></p>
+  <p><%= form.label :notes %></p>
+  <p><%= form.text_area :notes, value: workout.notes,
+                        rows: 4 %></p>
+  <p><%= form.label :length %></p>
+  <p><%= form.number_field :length, value: workout.length %></p>
+  <p><%= form.submit submit_text %></p>
+<% end %>

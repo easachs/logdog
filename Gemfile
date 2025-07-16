@@ -59,6 +59,7 @@ group :development do
 end
 gem "devise"
 gem "faraday"
+gem "kaminari"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 gem "view_component"

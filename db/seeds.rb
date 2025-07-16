@@ -1,9 +1,24 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+Exercise.create(name: "Bench Press", category: "Push")
+Exercise.create(name: "Incline Bench Press", category: "Push")
+Exercise.create(name: "Overhead Press", category: "Push")
+Exercise.create(name: "Military Press", category: "Push")
+Exercise.create(name: "Dips", category: "Push")
+Exercise.create(name: "Flys", category: "Push")
+Exercise.create(name: "Skull Crushers", category: "Push")
+Exercise.create(name: "Lateral Raises", category: "Push")
+
+Exercise.create(name: "Pull Ups", category: "Pull")
+Exercise.create(name: "Rows", category: "Pull")
+Exercise.create(name: "Face Pulls", category: "Pull")
+Exercise.create(name: "Hammer Curls", category: "Pull")
+Exercise.create(name: "Bicep Curls", category: "Pull")
+
+Exercise.create(name: "Sit Ups", category: "Core")
+Exercise.create(name: "Planks", category: "Core")
+Exercise.create(name: "Side Planks", category: "Core")
+Exercise.create(name: "Hanging Leg Raises", category: "Core")
+
+Exercise.create(name: "Squats", category: "Legs")
+Exercise.create(name: "Romanian Deadlifts", category: "Legs")
+Exercise.create(name: "Split Squats", category: "Legs")
+Exercise.create(name: "Leg Press", category: "Legs")

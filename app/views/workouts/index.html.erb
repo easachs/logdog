@@ -1,0 +1,19 @@
+<h1>Workouts</h1>
+
+<% @workouts.each do |workout| %>
+  <div class="m-2 mb-4 bg-gray-100 p-2 rounded">
+  <h3><%= workout.performed_at_formatted %></h3>
+  <h2><%= link_to workout.name, workout_path(workout) %></h2>
+  <p><%= workout.notes %></p>
+  <p><%= workout.length %> min</p>
+  <p><%= link_to "Edit", edit_workout_path(workout) %></p>
+  <p><%= button_to "Delete", workout_path(workout), method: :delete,
+                                                    data: { confirm: "Are you sure?" } %></p>
+  </div>
+<% end %>
+
+<%= paginate @workouts %>
+
+<p><%= link_to "New Workout", new_workout_path %></p>
+
+<p><%= button_to "Sign Out", destroy_user_session_path, method: :delete %></p>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'workouts#index'
   
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks"
@@ -16,4 +16,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :workouts
 end
