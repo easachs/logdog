@@ -1,3 +1,16 @@
+puts "🌱 Starting database seeding..."
+
+# Clear existing data to prevent duplicates
+puts "🧹 Clearing existing data..."
+# Clear in order to respect foreign key constraints
+WorkoutSet.delete_all
+WorkoutExercise.delete_all
+WorkoutTemplateExercise.delete_all
+WorkoutTemplate.delete_all
+Exercise.delete_all
+puts "✅ Cleared existing data"
+
+puts "📝 Creating exercises..."
 exercises = [
   # === PUSH ===
   {
@@ -203,3 +216,125 @@ exercises = [
 exercises.each do |attrs|
   Exercise.create!(attrs)
 end
+puts "✅ Created #{Exercise.count} exercises"
+
+# Create workout templates
+puts "🏋️ Creating workout templates..."
+
+# Push Day Template
+puts "  📝 Creating Push Day template..."
+push_template = WorkoutTemplate.create!(
+  name: "Push Day",
+  description: "Upper body pushing movements focusing on chest, shoulders, and triceps"
+)
+
+# Add exercises to push template
+push_exercises = [
+  { name: "Flat Barbell Bench Press", order: 1, notes: "3-4 sets, 6-8 reps" },
+  { name: "Overhead Press", order: 2, notes: "3-4 sets, 6-8 reps" },
+  { name: "Incline Dumbbell Press", order: 3, notes: "3 sets, 8-10 reps" },
+  { name: "Dips", order: 4, notes: "3 sets, 8-12 reps" },
+  { name: "Lateral Raises", order: 5, notes: "3 sets, 10-15 reps" },
+  { name: "Skull Crushers", order: 6, notes: "3 sets, 8-12 reps" }
+]
+
+push_exercises.each do |exercise_data|
+  exercise = Exercise.find_by(name: exercise_data[:name])
+  if exercise
+    push_template.workout_template_exercises.create!(
+      exercise: exercise,
+      order: exercise_data[:order],
+      notes: exercise_data[:notes]
+    )
+  end
+end
+
+# Pull Day Template
+puts "  📝 Creating Pull Day template..."
+pull_template = WorkoutTemplate.create!(
+  name: "Pull Day",
+  description: "Upper body pulling movements focusing on back, biceps, and rear delts"
+)
+
+# Add exercises to pull template
+pull_exercises = [
+  { name: "Pull-Ups", order: 1, notes: "3-4 sets, 6-10 reps" },
+  { name: "Barbell Row", order: 2, notes: "3-4 sets, 6-8 reps" },
+  { name: "Dumbbell Row", order: 3, notes: "3 sets, 8-10 reps" },
+  { name: "Face Pulls", order: 4, notes: "3 sets, 12-15 reps" },
+  { name: "Bicep Curls", order: 5, notes: "3 sets, 8-12 reps" },
+  { name: "Hammer Curls", order: 6, notes: "3 sets, 8-12 reps" }
+]
+
+pull_exercises.each do |exercise_data|
+  exercise = Exercise.find_by(name: exercise_data[:name])
+  if exercise
+    pull_template.workout_template_exercises.create!(
+      exercise: exercise,
+      order: exercise_data[:order],
+      notes: exercise_data[:notes]
+    )
+  end
+end
+
+# Leg Day Template
+puts "  📝 Creating Leg Day template..."
+leg_template = WorkoutTemplate.create!(
+  name: "Leg Day",
+  description: "Lower body compound movements for strength and muscle development"
+)
+
+# Add exercises to leg template
+leg_exercises = [
+  { name: "Squats", order: 1, notes: "4-5 sets, 5-8 reps" },
+  { name: "Romanian Deadlift", order: 2, notes: "3-4 sets, 6-8 reps" },
+  { name: "Split Squats", order: 3, notes: "3 sets, 8-10 reps each leg" },
+  { name: "Leg Press", order: 4, notes: "3 sets, 10-15 reps" },
+  { name: "Planks", order: 5, notes: "3 sets, 30-60 seconds" }
+]
+
+leg_exercises.each do |exercise_data|
+  exercise = Exercise.find_by(name: exercise_data[:name])
+  if exercise
+    leg_template.workout_template_exercises.create!(
+      exercise: exercise,
+      order: exercise_data[:order],
+      notes: exercise_data[:notes]
+    )
+  end
+end
+
+# Full Body Template
+puts "  📝 Creating Full Body template..."
+full_body_template = WorkoutTemplate.create!(
+  name: "Full Body",
+  description: "Complete workout hitting all major muscle groups"
+)
+
+# Add exercises to full body template
+full_body_exercises = [
+  { name: "Squats", order: 1, notes: "3 sets, 8-10 reps" },
+  { name: "Flat Barbell Bench Press", order: 2, notes: "3 sets, 8-10 reps" },
+  { name: "Barbell Row", order: 3, notes: "3 sets, 8-10 reps" },
+  { name: "Overhead Press", order: 4, notes: "3 sets, 8-10 reps" },
+  { name: "Pull-Ups", order: 5, notes: "3 sets, 6-10 reps" },
+  { name: "Planks", order: 6, notes: "3 sets, 30-60 seconds" }
+]
+
+full_body_exercises.each do |exercise_data|
+  exercise = Exercise.find_by(name: exercise_data[:name])
+  if exercise
+    full_body_template.workout_template_exercises.create!(
+      exercise: exercise,
+      order: exercise_data[:order],
+      notes: exercise_data[:notes]
+    )
+  end
+end
+
+puts "✅ Created #{WorkoutTemplate.count} workout templates!"
+puts "🎉 Database seeding completed successfully!"
+puts "📊 Summary:"
+puts "   • #{Exercise.count} exercises"
+puts "   • #{WorkoutTemplate.count} workout templates"
+puts "   • #{WorkoutTemplateExercise.count} template exercises"

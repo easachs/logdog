@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_25_193205) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_25_211226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -67,6 +67,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_25_193205) do
     t.index ["workout_exercise_id"], name: "index_workout_sets_on_workout_exercise_id"
   end
 
+  create_table "workout_template_exercises", force: :cascade do |t|
+    t.bigint "workout_template_id", null: false
+    t.bigint "exercise_id", null: false
+    t.integer "order", null: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_workout_template_exercises_on_exercise_id"
+    t.index ["workout_template_id", "order"], name: "idx_on_workout_template_id_order_6687cd9501"
+    t.index ["workout_template_id"], name: "index_workout_template_exercises_on_workout_template_id"
+  end
+
+  create_table "workout_templates", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "workouts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
@@ -82,5 +101,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_25_193205) do
   add_foreign_key "workout_exercises", "exercises"
   add_foreign_key "workout_exercises", "workouts"
   add_foreign_key "workout_sets", "workout_exercises"
+  add_foreign_key "workout_template_exercises", "exercises"
+  add_foreign_key "workout_template_exercises", "workout_templates"
   add_foreign_key "workouts", "users"
 end

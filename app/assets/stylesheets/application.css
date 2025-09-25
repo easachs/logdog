@@ -1,5 +1,5 @@
 body {
-  font-family: 'Walter Turncoat', sans-serif;
+  /* font-family: 'Walter Turncoat', sans-serif; */
 }
 
 a, button {
@@ -13,6 +13,7 @@ a, button {
 h1 {
   font-size: 2rem;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 h2 {
@@ -32,4 +33,10 @@ input, textarea {
   margin-bottom: 0.5rem;
   border-radius: 0.25rem;
   width: 100%;
+}
+
+.btn {
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
 }

@@ -15,10 +15,10 @@
 </div>
 
 <div class="mb-4">
-  <%= link_to "Add Set", new_workout_workout_exercise_workout_set_path(@workout, @workout_exercise), 
-              class: "bg-blue-500 text-white px-4 py-2 rounded" %>
-  <%= link_to "Edit Exercise", edit_workout_workout_exercise_path(@workout, @workout_exercise), 
-              class: "bg-gray-500 text-white px-4 py-2 rounded ml-2" %>
+  <%= link_to "Add Set", new_workout_workout_exercise_workout_set_path(@workout, @workout_exercise),
+              class: "btn bg-blue-500" %>
+  <%= link_to "Edit Exercise", edit_workout_workout_exercise_path(@workout, @workout_exercise),
+              class: "btn bg-gray-500 ml-2" %>
 </div>
 
 <h2>Sets</h2>
@@ -29,10 +29,10 @@
         <div class="flex justify-between items-center">
           <span><strong>Set <%= set.set_number %>:</strong> <%= set.reps %> reps @ <%= set.weight %> lbs</span>
           <div>
-            <%= link_to "Edit", edit_workout_workout_exercise_workout_set_path(@workout, @workout_exercise, set), 
+            <%= link_to "Edit", edit_workout_workout_exercise_workout_set_path(@workout, @workout_exercise, set),
                         class: "text-blue-600 text-sm" %>
-            <%= link_to "Delete", workout_workout_exercise_workout_set_path(@workout, @workout_exercise, set), 
-                        method: :delete, data: { confirm: "Are you sure?" }, 
+            <%= link_to "Delete", workout_workout_exercise_workout_set_path(@workout, @workout_exercise, set),
+                        method: :delete, data: { confirm: "Are you sure?" },
                         class: "text-red-600 text-sm ml-2" %>
           </div>
         </div>

@@ -19,11 +19,18 @@
 
   # Exercise Library (global exercises)
   resources :exercises
-  
+
+  # Workout Templates
+  resources :workout_templates do
+    member do
+      post :create_workout
+    end
+  end
+
   # Workout-specific functionality
   resources :workouts do
     # Add exercises to workout (creates WorkoutExercise)
-    resources :workout_exercises, path: 'exercises' do
+    resources :workout_exercises, path: "exercises" do
       # Manage sets within each workout exercise
       resources :workout_sets
     end

@@ -2,7 +2,7 @@ class WorkoutSetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_workout
   before_action :set_workout_exercise
-  before_action :set_workout_set, only: [:show, :edit, :update, :destroy]
+  before_action :set_workout_set, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @workout_sets = @workout_exercise.workout_sets.order(:set_number)
@@ -18,10 +18,10 @@ class WorkoutSetsController < ApplicationController
 
   def create
     @workout_set = @workout_exercise.workout_sets.build(workout_set_params)
-    
+
     if @workout_set.save
-      redirect_to workout_workout_exercise_path(@workout, @workout_exercise), 
-                  notice: 'Set added to exercise.'
+      redirect_to workout_workout_exercise_path(@workout, @workout_exercise),
+                  notice: "Set added to exercise."
     else
       render :new
     end
@@ -32,8 +32,8 @@ class WorkoutSetsController < ApplicationController
 
   def update
     if @workout_set.update(workout_set_params)
-      redirect_to workout_workout_exercise_path(@workout, @workout_exercise), 
-                  notice: 'Set updated.'
+      redirect_to workout_workout_exercise_path(@workout, @workout_exercise),
+                  notice: "Set updated."
     else
       render :edit
     end
@@ -41,8 +41,8 @@ class WorkoutSetsController < ApplicationController
 
   def destroy
     @workout_set.destroy
-    redirect_to workout_workout_exercise_path(@workout, @workout_exercise), 
-                notice: 'Set removed.'
+    redirect_to workout_workout_exercise_path(@workout, @workout_exercise),
+                notice: "Set removed."
   end
 
   private

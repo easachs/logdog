@@ -1,6 +1,6 @@
 class ExercisesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_exercise, only: [:show, :edit, :update, :destroy]
+  before_action :set_exercise, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @exercises = Exercise.all.order(:name).page(params[:page]).per(10)
@@ -16,7 +16,7 @@ class ExercisesController < ApplicationController
   def create
     @exercise = Exercise.new(exercise_params)
     if @exercise.save
-      redirect_to @exercise, notice: 'Exercise was successfully created.'
+      redirect_to @exercise, notice: "Exercise was successfully created."
     else
       render :new
     end
@@ -27,7 +27,7 @@ class ExercisesController < ApplicationController
 
   def update
     if @exercise.update(exercise_params)
-      redirect_to @exercise, notice: 'Exercise was successfully updated.'
+      redirect_to @exercise, notice: "Exercise was successfully updated."
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class ExercisesController < ApplicationController
 
   def destroy
     @exercise.destroy
-    redirect_to exercises_path, notice: 'Exercise was successfully deleted.'
+    redirect_to exercises_path, notice: "Exercise was successfully deleted."
   end
 
   private

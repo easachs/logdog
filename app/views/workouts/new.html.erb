@@ -1,5 +1,24 @@
 <h1>New Workout</h1>
 
-<%= render "form", workout: Workout.new, submit_text: "Create" %>
+<div class="mb-6">
+  <h2 class="text-lg font-semibold mb-4">Choose a Template (Optional)</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <% WorkoutTemplate.all.each do |template| %>
+      <div class="border border-gray-300 rounded p-4 hover:bg-gray-50">
+        <h3 class="font-semibold"><%= template.name %></h3>
+        <p class="text-sm text-gray-600 mb-2"><%= template.description %></p>
+        <p class="text-xs text-gray-500"><%= template.workout_template_exercises.count %> exercises</p>
+        <%= form_with url: create_workout_workout_template_path(template), method: :post, local: true, class: "mt-2" do |form| %>
+          <%= form.submit "Use Template", class: "btn bg-purple-500 hover:bg-purple-600" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="border-t pt-6">
+  <h2 class="text-lg font-semibold mb-4">Or Create Custom Workout</h2>
+  <%= render "form", workout: Workout.new, submit_text: "Create" %>
+</div>
 
 <p><%= link_to "Back to Workouts", workouts_path %></p>

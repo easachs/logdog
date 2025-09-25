@@ -1,7 +1,7 @@
 class WorkoutExercisesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_workout
-  before_action :set_workout_exercise, only: [:show, :edit, :update, :destroy]
+  before_action :set_workout_exercise, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @workout_exercises = @workout.workout_exercises.includes(:exercise).order(:order)
@@ -18,9 +18,9 @@ class WorkoutExercisesController < ApplicationController
   def create
     @workout_exercise = @workout.workout_exercises.build(workout_exercise_params)
     @workout_exercise.order = @workout.workout_exercises.count + 1
-    
+
     if @workout_exercise.save
-      redirect_to workout_path(@workout), notice: 'Exercise added to workout.'
+      redirect_to workout_path(@workout), notice: "Exercise added to workout."
     else
       @exercises = Exercise.all.order(:name)
       render :new
@@ -33,7 +33,7 @@ class WorkoutExercisesController < ApplicationController
 
   def update
     if @workout_exercise.update(workout_exercise_params)
-      redirect_to workout_path(@workout), notice: 'Workout exercise updated.'
+      redirect_to workout_path(@workout), notice: "Workout exercise updated."
     else
       @exercises = Exercise.all.order(:name)
       render :edit
@@ -42,7 +42,7 @@ class WorkoutExercisesController < ApplicationController
 
   def destroy
     @workout_exercise.destroy
-    redirect_to workout_path(@workout), notice: 'Exercise removed from workout.'
+    redirect_to workout_path(@workout), notice: "Exercise removed from workout."
   end
 
   private
