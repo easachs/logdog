@@ -1,0 +1,8 @@
+<h1>Add Exercise to <%= @workout.name %></h1>
+
+<%= render "form", workout_exercise: @workout_exercise, submit_text: "Add Exercise" %>
+
+<div class="mt-4">
+  <p><%= link_to "Back to Workout", workout_path(@workout) %></p>
+  <p><%= link_to "Create New Exercise", new_exercise_path, class: "ml-4 text-blue-600" %></p>
+</div>

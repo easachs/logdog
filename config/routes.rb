@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+ Rails.application.routes.draw do
   root "workouts#index"
 
   devise_for :users, controllers: {
@@ -17,7 +17,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  # Exercise Library (global exercises)
+  resources :exercises
+  
+  # Workout-specific functionality
   resources :workouts do
-    resources :exercises, except: [:index]
+    # Add exercises to workout (creates WorkoutExercise)
+    resources :workout_exercises, path: 'exercises' do
+      # Manage sets within each workout exercise
+      resources :workout_sets
+    end
   end
 end

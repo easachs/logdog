@@ -1,0 +1,5 @@
+<h1>Edit Exercise in <%= @workout.name %></h1>
+
+<%= render "form", workout_exercise: @workout_exercise, submit_text: "Update Exercise" %>
+
+<%= link_to "Back to Exercise", workout_workout_exercise_path(@workout, @workout_exercise) %>

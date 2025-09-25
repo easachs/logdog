@@ -6,14 +6,21 @@
   <h2><%= link_to workout.name, workout_path(workout) %></h2>
   <p><%= workout.notes %></p>
   <p><%= workout.length %> min</p>
-  <p><%= link_to "Edit", edit_workout_path(workout) %></p>
-  <p><%= button_to "Delete", workout_path(workout), method: :delete,
-                                                    data: { confirm: "Are you sure?" } %></p>
+  <div class="my-2">
+    <% workout.workout_exercises.each do |workout_exercise| %>
+      <p><%= link_to workout_exercise.exercise.name, workout_workout_exercise_path(workout, workout_exercise) %></p>
+    <% end %>
+  </div>
+  <%= link_to "Edit", edit_workout_path(workout) %>
+  <%= button_to "Delete", workout_path(workout), method: :delete,
+                                                    data: { confirm: "Are you sure?" } %>
   </div>
 <% end %>
 
 <%= paginate @workouts %>
 
-<p><%= link_to "New Workout", new_workout_path %></p>
+<div class="mb-4">
+  <%= link_to "New Workout", new_workout_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+  <%= link_to "Exercise Library", exercises_path, class: "bg-green-500 text-white px-4 py-2 rounded ml-2" %>
+</div>
 
-<p><%= button_to "Sign Out", destroy_user_session_path, method: :delete %></p>

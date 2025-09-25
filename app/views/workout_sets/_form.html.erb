@@ -1,0 +1,23 @@
+<%= form_with model: [@workout, @workout_exercise, workout_set] do |form| %>
+  <div class="mb-4">
+    <%= form.label :set_number, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :set_number, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md", 
+                          placeholder: "Set number" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :reps, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :reps, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md", 
+                          placeholder: "Number of repetitions" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :weight, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :weight, step: 0.5, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md", 
+                          placeholder: "Weight in lbs" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.submit submit_text, class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+  </div>
+<% end %>

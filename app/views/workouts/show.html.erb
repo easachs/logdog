@@ -7,9 +7,49 @@
   <p>(<%= @workout.length %> min)</p>
 </div>
 
+<div class="mb-4">
+  <%= link_to "Add Exercise", new_workout_workout_exercise_path(@workout), 
+              class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+  <%= link_to "View All Exercises", workout_workout_exercises_path(@workout), 
+              class: "bg-gray-500 text-white px-4 py-2 rounded ml-2" %>
+</div>
+
+<h2>Exercises</h2>
+<% if @workout.workout_exercises.any? %>
+  <% @workout.workout_exercises.order(:order).each do |workout_exercise| %>
+    <div class="m-2 mb-4 bg-gray-100 p-4 rounded">
+      <h3 class="text-lg font-semibold">
+        <%= link_to workout_exercise.exercise.name, 
+                    workout_workout_exercise_path(@workout, workout_exercise) %>
+      </h3>
+      <p class="text-sm text-gray-600"><strong>Category:</strong> <%= workout_exercise.exercise.category %></p>
+      <% if workout_exercise.notes.present? %>
+        <p class="mt-2"><strong>Notes:</strong> <%= workout_exercise.notes %></p>
+      <% end %>
+      <p class="text-sm text-gray-600"><strong>Sets:</strong> <%= workout_exercise.workout_sets.count %></p>
+      
+      <div class="mt-2">
+        <%= link_to "View Sets", workout_workout_exercise_path(@workout, workout_exercise), 
+                    class: "text-blue-600" %>
+        <%= link_to "Edit", edit_workout_workout_exercise_path(@workout, workout_exercise), 
+                    class: "text-blue-600 ml-4" %>
+        <%= link_to "Remove", workout_workout_exercise_path(@workout, workout_exercise), 
+                    method: :delete, data: { confirm: "Are you sure?" }, 
+                    class: "text-red-600 ml-4" %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="text-center text-gray-500 py-8">
+    <p>No exercises added to this workout yet.</p>
+    <p><%= link_to "Add your first exercise", new_workout_workout_exercise_path(@workout), 
+                class: "text-blue-600" %></p>
+  </div>
+<% end %>
+
 <div>
-  <p><%= link_to "Edit", edit_workout_path(@workout) %></p>
-  <p><%= button_to "Delete", workout_path(@workout), method: :delete,
+  <p><%= link_to "Edit Workout", edit_workout_path(@workout) %></p>
+  <p><%= button_to "Delete Workout", workout_path(@workout), method: :delete,
                                                      data: { confirm: "Are you sure?" } %></p>
   <p><%= link_to "Back to Workouts", workouts_path %></p>
 </div>

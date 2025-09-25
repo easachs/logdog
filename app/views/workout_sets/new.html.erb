@@ -1,0 +1,6 @@
+<h1>Add Set to <%= @workout_exercise.exercise.name %></h1>
+<p class="text-sm text-gray-600">in <%= @workout.name %></p>
+
+<%= render "form", workout_set: @workout_set, submit_text: "Add Set" %>
+
+<%= link_to "Back to Exercise", workout_workout_exercise_path(@workout, @workout_exercise) %>

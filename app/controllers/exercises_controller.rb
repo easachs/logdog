@@ -1,39 +1,50 @@
 class ExercisesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_exercise, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @exercises = Exercise.all.order(:name).page(params[:page]).per(10)
+  end
 
   def show
-    @exercise = WorkoutExercise.find(params[:id])
+  end
+
+  def new
+    @exercise = Exercise.new
   end
 
   def create
-    @exercise = WorkoutExercise.new(exercise_params)
-    @exercise.save
-    redirect_to workout_path(@exercise.workout)
+    @exercise = Exercise.new(exercise_params)
+    if @exercise.save
+      redirect_to @exercise, notice: 'Exercise was successfully created.'
+    else
+      render :new
+    end
   end
 
   def edit
-    @exercise = WorkoutExercise.find(params[:id])
   end
 
   def update
-    @exercise = WorkoutExercise.find(params[:id])
-    @exercise.update(workout_exercise_params)
-    redirect_to workout_path(@exercise.workout)
+    if @exercise.update(exercise_params)
+      redirect_to @exercise, notice: 'Exercise was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @exercise = WorkoutExercise.find(params[:id])
     @exercise.destroy
-    redirect_to workout_path(@exercise.workout)
+    redirect_to exercises_path, notice: 'Exercise was successfully deleted.'
   end
 
   private
 
-  def set_workout
-    @workout = current_user.workouts.find(params[:workout_id])
+  def set_exercise
+    @exercise = Exercise.find(params[:id])
   end
 
   def exercise_params
-    params.require(:exercise).permit(:sets, :reps, :weight, :notes)
+    params.require(:exercise).permit(:name, :category, :equipment, :description)
   end
 end

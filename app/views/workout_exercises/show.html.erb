@@ -1,0 +1,48 @@
+<h1><%= @workout_exercise.exercise.name %></h1>
+<p class="text-sm text-gray-600 mb-4">in <%= @workout.name %></p>
+
+<div class="bg-gray-100 p-4 rounded mb-4">
+  <p><strong>Category:</strong> <%= @workout_exercise.exercise.category %></p>
+  <p><strong>Equipment:</strong> <%= @workout_exercise.exercise.equipment %></p>
+  <% if @workout_exercise.exercise.description.present? %>
+    <p class="mt-2"><strong>Description:</strong></p>
+    <p><%= @workout_exercise.exercise.description %></p>
+  <% end %>
+  <% if @workout_exercise.notes.present? %>
+    <p class="mt-2"><strong>Workout Notes:</strong></p>
+    <p><%= @workout_exercise.notes %></p>
+  <% end %>
+</div>
+
+<div class="mb-4">
+  <%= link_to "Add Set", new_workout_workout_exercise_workout_set_path(@workout, @workout_exercise), 
+              class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+  <%= link_to "Edit Exercise", edit_workout_workout_exercise_path(@workout, @workout_exercise), 
+              class: "bg-gray-500 text-white px-4 py-2 rounded ml-2" %>
+</div>
+
+<h2>Sets</h2>
+<% if @workout_exercise.workout_sets.any? %>
+  <div class="space-y-2">
+    <% @workout_exercise.workout_sets.order(:set_number).each do |set| %>
+      <div class="bg-white p-3 rounded border-gray-300 border">
+        <div class="flex justify-between items-center">
+          <span><strong>Set <%= set.set_number %>:</strong> <%= set.reps %> reps @ <%= set.weight %> lbs</span>
+          <div>
+            <%= link_to "Edit", edit_workout_workout_exercise_workout_set_path(@workout, @workout_exercise, set), 
+                        class: "text-blue-600 text-sm" %>
+            <%= link_to "Delete", workout_workout_exercise_workout_set_path(@workout, @workout_exercise, set), 
+                        method: :delete, data: { confirm: "Are you sure?" }, 
+                        class: "text-red-600 text-sm ml-2" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-gray-500">No sets added yet.</p>
+<% end %>
+
+<div class="mt-4">
+  <p><%= link_to "Back to Workout", workout_path(@workout) %></p>
+</div>
