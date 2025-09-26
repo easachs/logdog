@@ -2,16 +2,18 @@
 
 <h2><%= @workout.name %></h2>
 
-<div class="bg-gray-100 p-2 m-4">
-  <p><%= @workout.notes %></p>
-  <p>(<%= @workout.length %> min)</p>
-</div>
+<% if @workout.length.present? || @workout.notes.present? %>
+  <div class="bg-gray-100 p-2 m-4">
+    <p><%= @workout.notes %></p>
+      <p>(<%= @workout.length %> min)</p>
+  </div>
+<% end %>
 
 <div class="mb-4">
   <%= link_to "Add Exercise", new_workout_workout_exercise_path(@workout),
               class: "btn bg-blue-500" %>
   <%= link_to "View All Exercises", workout_workout_exercises_path(@workout),
-              class: "btn bg-gray-500 ml-2" %>
+              class: "btn bg-blue-500 ml-2" %>
 </div>
 
 <h2>Exercises</h2>

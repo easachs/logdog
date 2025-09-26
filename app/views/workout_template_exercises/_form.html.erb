@@ -1,0 +1,39 @@
+<%= form_with model: [@workout_template, @workout_template_exercise] do |form| %>
+  <% if @workout_template_exercise.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      <h2><%= pluralize(@workout_template_exercise.errors.count, "error") %> prohibited this exercise from being saved:</h2>
+      <ul>
+        <% @workout_template_exercise.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= form.label :exercise_id, "Exercise", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.select :exercise_id, 
+                    options_from_collection_for_select(@exercises, :id, :name, @workout_template_exercise.exercise_id),
+                    { prompt: "Select an exercise" },
+                    { class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" } %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :order, "Order", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :order, 
+                          class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md",
+                          placeholder: "Exercise order in template" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :notes, "Template Notes", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :notes, 
+                       class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md",
+                       rows: 4, 
+                       placeholder: "Notes for this exercise in the template" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.submit submit_text, class: "btn bg-blue-500" %>
+  </div>
+<% end %>

@@ -24,4 +24,7 @@ class WorkoutExercise < ApplicationRecord
   belongs_to :workout
   belongs_to :exercise
   has_many :workout_sets, dependent: :destroy
+
+  validates :exercise_id, presence: true
+  validates :order, presence: true, numericality: { greater_than_or_equal_to: 0 }
 end

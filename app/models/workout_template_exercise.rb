@@ -26,5 +26,5 @@ class WorkoutTemplateExercise < ApplicationRecord
   belongs_to :exercise
 
   validates :exercise_id, presence: true
-  validates :order, presence: true, numericality: { greater_than: 0 }
+  validates :order, presence: true, numericality: { greater_than_or_equal_to: 0 }
 end

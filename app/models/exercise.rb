@@ -12,4 +12,7 @@
 #
 class Exercise < ApplicationRecord
   has_many :workout_exercises, dependent: :destroy
+  has_many :workout_template_exercises, dependent: :destroy
+
+  validates :name, presence: true
 end

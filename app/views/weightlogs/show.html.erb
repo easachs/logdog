@@ -1,0 +1,14 @@
+<h1>Weight Log</h1>
+
+<div class="bg-gray-100 p-4 rounded mb-4">
+  <p><strong>Date:</strong> <%= @weightlog.logged_at.strftime('%B %d, %Y') %></p>
+  <p><strong>Weight:</strong> <%= @weightlog.weight %> lbs</p>
+</div>
+
+<div class="mb-4">
+  <%= link_to "Edit", edit_weightlog_path(@weightlog), class: "btn bg-blue-500" %>
+  <%= link_to "Delete", weightlog_path(@weightlog), method: :delete,
+              data: { confirm: "Are you sure?" }, class: "btn bg-red-500 ml-2" %>
+</div>
+
+<%= link_to "Back to Weight Tracking", weightlogs_path, class: "btn bg-blue-500" %>

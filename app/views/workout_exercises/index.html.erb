@@ -4,7 +4,7 @@
   <%= link_to "Add Exercise", new_workout_workout_exercise_path(@workout),
               class: "btn bg-blue-500" %>
   <%= link_to "Back to Workout", workout_path(@workout),
-              class: "btn bg-gray-500 ml-2" %>
+              class: "btn bg-blue-500 ml-2" %>
 </div>
 
 <% @workout_exercises.each do |workout_exercise| %>
@@ -22,12 +22,12 @@
 
     <div class="mt-2">
       <%= link_to "View Sets", workout_workout_exercise_path(@workout, workout_exercise),
-                  class: "text-blue-600" %>
+                  class: "btn bg-blue-500" %>
       <%= link_to "Edit", edit_workout_workout_exercise_path(@workout, workout_exercise),
-                  class: "text-blue-600 ml-4" %>
+                  class: "btn bg-blue-500 ml-2" %>
       <%= link_to "Remove", workout_workout_exercise_path(@workout, workout_exercise),
                   method: :delete, data: { confirm: "Are you sure?" },
-                  class: "text-red-600 ml-4" %>
+                  class: "btn bg-blue-500 ml-2" %>
     </div>
   </div>
 <% end %>
@@ -36,6 +36,6 @@
   <div class="text-center text-gray-500 py-8">
     <p>No exercises added to this workout yet.</p>
     <p><%= link_to "Add your first exercise", new_workout_workout_exercise_path(@workout),
-                class: "text-blue-600" %></p>
+                class: "btn bg-blue-500" %></p>
   </div>
 <% end %>

@@ -20,11 +20,16 @@
   # Exercise Library (global exercises)
   resources :exercises
 
+  # Weight logging
+  resources :weightlogs
+
   # Workout Templates
   resources :workout_templates do
     member do
       post :create_workout
     end
+    # Add exercises to template (creates WorkoutTemplateExercise)
+    resources :workout_template_exercises, path: "exercises"
   end
 
   # Workout-specific functionality

@@ -1,0 +1,41 @@
+<h1>Exercises in <%= @workout_template.name %></h1>
+
+<div class="mb-4">
+  <%= link_to "Add Exercise", new_workout_template_workout_template_exercise_path(@workout_template),
+              class: "btn bg-blue-500" %>
+  <%= link_to "Back to Template", workout_template_path(@workout_template),
+              class: "btn bg-blue-500 ml-2" %>
+</div>
+
+<% @workout_template_exercises.each do |template_exercise| %>
+  <div class="m-2 mb-4 bg-gray-100 p-4 rounded">
+    <h3 class="text-lg font-semibold">
+      <%= link_to template_exercise.exercise.name,
+                  workout_template_workout_template_exercise_path(@workout_template, template_exercise) %>
+    </h3>
+    <p class="text-sm text-gray-600"><strong>Category:</strong> <%= template_exercise.exercise.category %></p>
+    <p class="text-sm text-gray-600"><strong>Equipment:</strong> <%= template_exercise.exercise.equipment %></p>
+    <p class="text-sm text-gray-600"><strong>Order:</strong> <%= template_exercise.order %></p>
+    <% if template_exercise.notes.present? %>
+      <p class="mt-2"><strong>Notes:</strong> <%= template_exercise.notes %></p>
+    <% end %>
+
+    <div class="mt-2">
+      <%= link_to "View", workout_template_workout_template_exercise_path(@workout_template, template_exercise),
+                  class: "text-blue-600" %>
+      <%= link_to "Edit", edit_workout_template_workout_template_exercise_path(@workout_template, template_exercise),
+                  class: "text-blue-600 ml-4" %>
+      <%= link_to "Remove", workout_template_workout_template_exercise_path(@workout_template, template_exercise),
+                  method: :delete, data: { confirm: "Are you sure?" },
+                  class: "text-red-600 ml-4" %>
+    </div>
+  </div>
+<% end %>
+
+<% if @workout_template_exercises.empty? %>
+  <div class="text-center text-gray-500 py-8">
+    <p>No exercises added to this template yet.</p>
+    <p><%= link_to "Add your first exercise", new_workout_template_workout_template_exercise_path(@workout_template),
+                class: "text-blue-600" %></p>
+  </div>
+<% end %>

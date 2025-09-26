@@ -20,4 +20,8 @@
 #
 class WorkoutSet < ApplicationRecord
   belongs_to :workout_exercise
+
+  validates :set_number, presence: true, numericality: { greater_than: 0 }
+  validates :reps, presence: true, numericality: { greater_than: 0 }
+  validates :weight, presence: true, numericality: { greater_than: 0 }
 end

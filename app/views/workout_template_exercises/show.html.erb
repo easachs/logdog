@@ -1,0 +1,25 @@
+<h1><%= @workout_template_exercise.exercise.name %></h1>
+<p class="text-sm text-gray-600 mb-4">in <%= @workout_template.name %></p>
+
+<div class="bg-gray-100 p-4 rounded mb-4">
+  <p><strong>Category:</strong> <%= @workout_template_exercise.exercise.category %></p>
+  <p><strong>Equipment:</strong> <%= @workout_template_exercise.exercise.equipment %></p>
+  <p><strong>Order:</strong> <%= @workout_template_exercise.order %></p>
+  <% if @workout_template_exercise.exercise.description.present? %>
+    <p class="mt-2"><strong>Description:</strong></p>
+    <p><%= @workout_template_exercise.exercise.description %></p>
+  <% end %>
+  <% if @workout_template_exercise.notes.present? %>
+    <p class="mt-2"><strong>Template Notes:</strong></p>
+    <p><%= @workout_template_exercise.notes %></p>
+  <% end %>
+</div>
+
+<div class="mb-4">
+  <%= link_to "Edit Exercise", edit_workout_template_workout_template_exercise_path(@workout_template, @workout_template_exercise),
+              class: "btn bg-blue-500" %>
+</div>
+
+<div class="mt-4">
+  <p><%= link_to "Back to Template", workout_template_path(@workout_template) %></p>
+</div>

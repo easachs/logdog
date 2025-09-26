@@ -1,0 +1,5 @@
+<h1>Edit Exercise in <%= @workout_template.name %></h1>
+
+<%= render "form", workout_template_exercise: @workout_template_exercise, submit_text: "Update Exercise" %>
+
+<%= link_to "Back to Exercise", workout_template_workout_template_exercise_path(@workout_template, @workout_template_exercise), class: "btn bg-blue-500" %>

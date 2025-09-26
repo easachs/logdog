@@ -1,4 +1,15 @@
 <%= form_with model: [@workout, workout_exercise] do |form| %>
+  <% if workout_exercise.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      <h2><%= pluralize(workout_exercise.errors.count, "error") %> prohibited this exercise from being saved:</h2>
+      <ul>
+        <% workout_exercise.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="mb-4">
     <%= form.label :exercise_id, "Exercise", class: "block text-sm font-medium text-gray-700" %>
     <%= form.select :exercise_id,

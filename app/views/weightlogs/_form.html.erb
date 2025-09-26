@@ -1,0 +1,32 @@
+<%= form_with model: weightlog, local: true do |form| %>
+  <% if weightlog.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      <h2><%= pluralize(weightlog.errors.count, "error") %> prohibited this weight log from being saved:</h2>
+      <ul>
+        <% weightlog.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= form.label :weight, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :weight, 
+                          step: 0.1, 
+                          class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md",
+                          placeholder: "Enter your weight in pounds",
+                          autofocus: true %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :logged_at, "Date", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.date_field :logged_at, 
+                        class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md",
+                        value: weightlog.logged_at&.strftime('%Y-%m-%d') || Date.current.strftime('%Y-%m-%d') %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.submit submit_text, class: "btn bg-blue-500" %>
+  </div>
+<% end %>

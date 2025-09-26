@@ -1,0 +1,138 @@
+<h1>Weight Tracking</h1>
+
+<div class="mb-4">
+  <%= link_to "Log Weight", new_weightlog_path, class: "btn bg-blue-500" %>
+  <%= link_to "Back to Workouts", workouts_path, class: "btn bg-blue-500 ml-2" %>
+</div>
+
+<% if @weightlogs.any? %>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Weight Chart -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">Weight Trend</h2>
+      <%= line_chart @chart_data, 
+          height: "300px",
+          colors: ["#3B82F6"],
+          library: {
+            title: "Weight Over Time",
+            hAxis: { title: "Date" },
+            vAxis: { title: "Weight (lbs)" }
+          } %>
+    </div>
+
+    <!-- Weight Metrics -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">Weight Statistics</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-gray-50 p-3 rounded">
+          <div class="text-sm text-gray-600">Current Weight</div>
+          <div class="text-2xl font-bold text-blue-600">
+            <%= @metrics[:most_recent_weight] %> lbs
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 p-3 rounded">
+          <div class="text-sm text-gray-600">Average Weight</div>
+          <div class="text-2xl font-bold text-green-600">
+            <%= @metrics[:average_weight] %> lbs
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 p-3 rounded">
+          <div class="text-sm text-gray-600">Highest Weight</div>
+          <div class="text-xl font-semibold text-red-600">
+            <%= @metrics[:max_weight] %> lbs
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 p-3 rounded">
+          <div class="text-sm text-gray-600">Lowest Weight</div>
+          <div class="text-xl font-semibold text-green-600">
+            <%= @metrics[:min_weight] %> lbs
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 p-3 rounded">
+          <div class="text-sm text-gray-600">Weight Range</div>
+          <div class="text-xl font-semibold">
+            <%= @metrics[:weight_range] %> lbs
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 p-3 rounded">
+          <div class="text-sm text-gray-600">This Week</div>
+          <div class="text-xl font-semibold">
+            <%= @metrics[:weight_this_week] %> logs
+          </div>
+        </div>
+      </div>
+      
+      <% if @metrics[:days_since_last_log] %>
+        <div class="mt-4 p-3 bg-blue-50 rounded">
+          <div class="text-sm text-blue-600">
+            Last logged <%= @metrics[:days_since_last_log] %> day<%= 's' if @metrics[:days_since_last_log] != 1 %> ago
+          </div>
+        </div>
+      <% end %>
+      
+      <% if @metrics[:weekly_change_percent] %>
+        <div class="mt-2 p-3 bg-green-50 rounded">
+          <div class="text-sm text-green-600">
+            Weekly change: <%= @metrics[:weekly_change_percent] %>%
+          </div>
+        </div>
+      <% end %>
+      
+      <% if @metrics[:logging_streak] > 0 %>
+        <div class="mt-2 p-3 bg-purple-50 rounded">
+          <div class="text-sm text-purple-600">
+            Logging streak: <%= @metrics[:logging_streak] %> day<%= 's' if @metrics[:logging_streak] != 1 %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Weight Logs Table -->
+  <div class="bg-white rounded-lg shadow">
+    <div class="px-6 py-4 border-b">
+      <h2 class="text-xl font-semibold">Recent Weight Logs</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weight</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% @weightlogs.each do |weightlog| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <%= weightlog.logged_at.strftime('%B %d, %Y') %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <%= weightlog.weight %> lbs
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <%= link_to "Edit", edit_weightlog_path(weightlog), class: "text-blue-600 hover:text-blue-900" %>
+                <%= link_to "Delete", weightlog_path(weightlog), method: :delete,
+                            data: { confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-900 ml-4" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= paginate @weightlogs %>
+<% else %>
+  <div class="text-center py-12">
+    <div class="text-gray-500 text-lg mb-4">No weight logs yet</div>
+    <p class="text-gray-600 mb-6">Start tracking your weight to see your progress over time!</p>
+    <%= link_to "Log Your First Weight", new_weightlog_path, class: "btn bg-blue-500" %>
+  </div>
+<% end %>

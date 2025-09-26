@@ -1,4 +1,8 @@
 <div class="flex justify-between items-center bg-gray-100 p-4">
-  <%= link_to image_tag("logdog.png", class: "w-5 h-5"), workouts_path %>
+  <div class="flex items-center space-x-4">
+    <%= link_to image_tag("logdog.png", class: "w-5 h-5"), workouts_path %>
+    <%= link_to "Workouts", workouts_path, class: "text-blue-600 hover:text-blue-800" %>
+    <%= link_to "Weight", weightlogs_path, class: "text-blue-600 hover:text-blue-800" %>
+  </div>
   <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
 </div>
